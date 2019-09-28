@@ -1,0 +1,39 @@
+sudo: required
+services:
+- docker
+env:
+  global:
+  - IMAGE_BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+  - IMAGE_VERSION="$(cat .image-version).$TRAVIS_BUILD_NUMBER"
+  - IMAGE_VCS_REF=$TRAVIS_COMMIT
+  - secure: xYaEztuqqi3vGYY6Mnprm9o2EoT5DQEvu7jgICa1ZuTo0hsSjNhVXlyVHcQA5BRY1+ID/GsdkZqODy8kCBqWSN0pGfYE6bkicURS7OQtfvfCVJzHDNznJTLQHdA7k32qX+SNxlNVC3lDD5ej8YBVdAUdPzKDTjfPHWcLfEBT3ps+sYJr3NOyWQOv00bwtWbYc7r3RJFDZ/UAertxcklAmbHIWCuGj04uTBQIy0KcV2+OqaBqIvYfwJ7AWna9v1vkAXfxK9KimMBTdbZC4cHbv2M94w9aoRgK+h7y5uopnFhnkimGb6T764C2NUrO1ughe+K6+RCANF6RHWn53vPvZDTZDsrG33WxFyqhqxHn1o3NDcrTyEUxNjrcc8Et4qvMugV97k73TtX8h9tMErOoIvzkQy1lXog9FRU7bljoE00DrpQJxK8tg3SK8hBogaPyx8x4+JT98ELHjZViHOSzUwA0oj7KlVl7qYTckD0HJOuKMU2+JS42MSGwbBoaTCH58TWCHogVSMvp836Ae17DA1WDeeNlhed9qHfx01CEnTHrEIEW0bJNrLoGtwODpgPL3ar97HFF3zRVYdDNXuGq7tMaL7+AlG23AhcGykXWMl1XlotOycMaqvltWkI/Ws/0xhsOuTC3qbInLE0Wb9J1+h5cYpxZsgpm+qyxNlVy4ew=
+  - secure: g0zOY4Tt2EG2N9Ley1RXVA17gOKNh1EZp0GRveFpckhOwdoCR02WYxXK/LVLJKKFI4m2KWYZHKR0w8UvZ7Em3wWB5Xa3oYO3JTkW9JnmD0d13yQv8okJ6v3v0hqcHPRNozZmKfxAHCEQBssSwS0j5B13Ef6thI7X06K8UmOpfGtSWDgXCJmmQyEraYFLw5ZxoQdwYluyYuh1lhOwxoXc8RoDR4MIGAaSj5Zk9zosH/Bkjc/3awK0rm2Aotu0rtkR5fXj8a6++7FYnWavg2gEO4Tvs5dPeJQxx+Qqb2x1QK90RPWlSMsw3M0QO2qd0N41/vh/TIWCKfLgaYeaLYA7gYlbh2rKGWm112o+dHNi+CGEP57N6W1IFII4r/6ER15k5+UjgIuD1zOoi2703slmiCV/wBTxOpUFAzOkTQn8BSPuMryasPun3+5NfiLd0dKItWpW0erTbei40OPL/wx0nP/J44blF+95Q0Izi/Jq/QWyyIXQMb0ImltDai+23Q2+TfRfesWozLMvp35yXKe6+OdWC2AXiZFxr0FHEQX4ggMUS+ZL4eW2hgOxmRJAxDYjsMHuDPL+AKvCQRAOLqdcfpi9CXyDtu44RbjptVBbTx1YN1ai2pE++iLSeSDa03cOdfXJIhN0jqFjvUGA6w95gdjHgielA9Hnm+xRxNYM4aw=
+jobs:
+  include:
+  - stage: build container
+    env:
+    - REPO_NAME=cseelye
+    - IMAGE_NAME="$(cat .image-name)"
+    - IMAGE_TAG=latest
+    - DOCKERFILE_NAME=Dockerfile
+    before_script: docker pull $REPO_NAME/$IMAGE_NAME:$IMAGE_TAG || true
+    script: docker build 
+      --build-arg VCS_REF=$IMAGE_VCS_REF
+      --build-arg BUILD_DATE=$IMAGE_BUILD_DATE
+      --build-arg VERSION=$IMAGE_VERSION
+      --build-arg IMAGE_NAME=$IMAGE_NAME
+      --cache-from $REPO_NAME/$IMAGE_NAME:$IMAGE_TAG
+      --tag $REPO_NAME/$IMAGE_NAME:$IMAGE_TAG
+      --file $DOCKERFILE_NAME
+      .
+    before_deploy:
+        - docker run --rm --volume $(pwd)/test-monitor.ini:/monitor/monitor.ini --volume $(pwd)/test-monitors.ini:/monitor/monitors.ini $REPO_NAME/$IMAGE_NAME:$IMAGE_TAG --debug --test
+        - docker run --rm --volume $(pwd)/test-monitor.ini:/monitor/monitor.ini --volume $(pwd)/test-monitors.ini:/monitor/monitors.ini $REPO_NAME/$IMAGE_NAME:$IMAGE_TAG --debug --one-shot
+        - docker login -u "$DOCKER_HUB_USERNAME" -p "$DOCKER_HUB_PASSWORD"
+    deploy:
+      provider: script
+      script: docker push $REPO_NAME/$IMAGE_NAME:$IMAGE_TAG
+      on:
+        branch: master
+stages:
+ - build container
