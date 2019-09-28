@@ -32,7 +32,7 @@ jobs:
     deploy:
       provider: script
       script:
-        - echo "$DOCKER_HUB_PASSWORD" | docker login --username "$DOCKER_HUB_USERNAME" --password-stdin
+        - docker login --username "$DOCKER_HUB_USERNAME" --password "$DOCKER_HUB_PASSWORD"
         - docker push $REPO_NAME/$IMAGE_NAME:$IMAGE_TAG
       on:
         branch: master
