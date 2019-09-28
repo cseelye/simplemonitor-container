@@ -27,12 +27,13 @@ jobs:
       --file $DOCKERFILE_NAME
       .
     before_deploy:
-        - docker run --rm --volume $(pwd)/test-monitor.ini:/monitor/monitor.ini --volume $(pwd)/test-monitors.ini:/monitor/monitors.ini $REPO_NAME/$IMAGE_NAME:$IMAGE_TAG --debug --test
-        - docker run --rm --volume $(pwd)/test-monitor.ini:/monitor/monitor.ini --volume $(pwd)/test-monitors.ini:/monitor/monitors.ini $REPO_NAME/$IMAGE_NAME:$IMAGE_TAG --debug --one-shot
-        - docker login -u "$DOCKER_HUB_USERNAME" -p "$DOCKER_HUB_PASSWORD"
+        - docker run --rm --volume $(pwd)/test-monitor.ini:/monitor/monitor.ini --volume $(pwd)/test-monitors.ini:/monitor/monitors.ini $REPO_NAME/$IMAGE_NAME:$IMAGE_TAG --log-level=debug --test
+        - docker run --rm --volume $(pwd)/test-monitor.ini:/monitor/monitor.ini --volume $(pwd)/test-monitors.ini:/monitor/monitors.ini $REPO_NAME/$IMAGE_NAME:$IMAGE_TAG --log-level=debug --one-shot
     deploy:
       provider: script
-      script: docker push $REPO_NAME/$IMAGE_NAME:$IMAGE_TAG
+      script:
+        - echo "$DOCKER_HUB_PASSWORD" | docker login --username "$DOCKER_HUB_USERNAME" --password-stdin
+        - docker push $REPO_NAME/$IMAGE_NAME:$IMAGE_TAG
       on:
         branch: master
 stages:
