@@ -1,13 +1,13 @@
 sudo: required
 services:
-- docker
+  - docker
 env:
   global:
   - IMAGE_BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
   - IMAGE_VERSION="$(cat .image-version).$TRAVIS_BUILD_NUMBER"
   - IMAGE_VCS_REF=$TRAVIS_COMMIT
-  - secure: xYaEztuqqi3vGYY6Mnprm9o2EoT5DQEvu7jgICa1ZuTo0hsSjNhVXlyVHcQA5BRY1+ID/GsdkZqODy8kCBqWSN0pGfYE6bkicURS7OQtfvfCVJzHDNznJTLQHdA7k32qX+SNxlNVC3lDD5ej8YBVdAUdPzKDTjfPHWcLfEBT3ps+sYJr3NOyWQOv00bwtWbYc7r3RJFDZ/UAertxcklAmbHIWCuGj04uTBQIy0KcV2+OqaBqIvYfwJ7AWna9v1vkAXfxK9KimMBTdbZC4cHbv2M94w9aoRgK+h7y5uopnFhnkimGb6T764C2NUrO1ughe+K6+RCANF6RHWn53vPvZDTZDsrG33WxFyqhqxHn1o3NDcrTyEUxNjrcc8Et4qvMugV97k73TtX8h9tMErOoIvzkQy1lXog9FRU7bljoE00DrpQJxK8tg3SK8hBogaPyx8x4+JT98ELHjZViHOSzUwA0oj7KlVl7qYTckD0HJOuKMU2+JS42MSGwbBoaTCH58TWCHogVSMvp836Ae17DA1WDeeNlhed9qHfx01CEnTHrEIEW0bJNrLoGtwODpgPL3ar97HFF3zRVYdDNXuGq7tMaL7+AlG23AhcGykXWMl1XlotOycMaqvltWkI/Ws/0xhsOuTC3qbInLE0Wb9J1+h5cYpxZsgpm+qyxNlVy4ew=
-  - secure: g0zOY4Tt2EG2N9Ley1RXVA17gOKNh1EZp0GRveFpckhOwdoCR02WYxXK/LVLJKKFI4m2KWYZHKR0w8UvZ7Em3wWB5Xa3oYO3JTkW9JnmD0d13yQv8okJ6v3v0hqcHPRNozZmKfxAHCEQBssSwS0j5B13Ef6thI7X06K8UmOpfGtSWDgXCJmmQyEraYFLw5ZxoQdwYluyYuh1lhOwxoXc8RoDR4MIGAaSj5Zk9zosH/Bkjc/3awK0rm2Aotu0rtkR5fXj8a6++7FYnWavg2gEO4Tvs5dPeJQxx+Qqb2x1QK90RPWlSMsw3M0QO2qd0N41/vh/TIWCKfLgaYeaLYA7gYlbh2rKGWm112o+dHNi+CGEP57N6W1IFII4r/6ER15k5+UjgIuD1zOoi2703slmiCV/wBTxOpUFAzOkTQn8BSPuMryasPun3+5NfiLd0dKItWpW0erTbei40OPL/wx0nP/J44blF+95Q0Izi/Jq/QWyyIXQMb0ImltDai+23Q2+TfRfesWozLMvp35yXKe6+OdWC2AXiZFxr0FHEQX4ggMUS+ZL4eW2hgOxmRJAxDYjsMHuDPL+AKvCQRAOLqdcfpi9CXyDtu44RbjptVBbTx1YN1ai2pE++iLSeSDa03cOdfXJIhN0jqFjvUGA6w95gdjHgielA9Hnm+xRxNYM4aw=
+  - secure: pIJbmmGXPLfNl69iy6WyF3XK5NIs37TcJhnLXqzJiXdl2CagfevtIqQEPVsCCwbk+Pbk0xpjP17heIzOYDDwbd+ftr6EeF6QhFL/+3ov2em0qKNCuL86Fg3WGSKGckZNhoBXtSPvYlFQriBpQe/yTVbVZ3Xs3NTdNEru9BgVU7cPQFUgHn/N8DV6TZDJj3wIvH3hYszRjNjKObCS7BYvHe+ZZBfm77VuX65CIxRLDTtYgh1ySAcysIXeCEb5vB1SN44+hNmTwdlJd8TL9zyaS4PQPyg5RjJvq+YpskhisAwTWZnPlkz6Du/2f/YLrrxwUUQKDrw7DiXMxepzbw9Kz2VM9mmRvk8uOYnb9Y+LvFegh0ROU553DMJm+S8iWo0Irybmg6YHGNi6WxP/3ruwnbReS6oBo16UXd6WZRLxZwXkc9GouyAJMuRg0CubLF2EXDNcUH2uiL9tYj0USZeraqQlyF9kWZxEBlRLDn4OYsZhwJSuS3pcp7MLTQSKhrs3Y9n0fc3j20pnbhpDHLZVCfeyRMBCpMShITdCmAtb47tDsRLyOExpjn20HN1u9A2h5Ng2f3JJSb2f4rXk1YBou0npH2h8bmcyhUUfRGRUaA23Laflo76pvG3NVGmDWYEpXAn0j+p2tYUQ+euRDxa6CRq17xeLDrEp6FrPRy0W5Zk=
+  - secure: fhwlsyjxZFoqo1KSHwxdHcr2lmGC0mknOkyMJmbTqGAlRCsfZwx+buwgokxP0Xk3LSt4W4Ek/XTyHK9xCyNB7tvT7LBySH/sLGBAss+lawOOs8lg+UnZZ8oCGQj8nMPsh2HX3dzz2gCQkxqs3L9MIZChcaZS26mE0M6F+nUNIg7VsrY3zpdc6P2sbdLXX243Xh1Fi9zMAadGZ1Xr4iuXkrjeP17sAEDrGMGr/APHPFDFL1F3aZQyfODXhnUmcbfyOyGZ5BD+Xd/6bmUkuaEeoIunEsF6VSViNE+LVtee4ynDFbs7/i7bgMRRuAx4U0r1dBrE7PpfEut1Pbu31sNX/MbZ+vfavIUv/XhgcRhWhwuCk+n6gYkHmEfc2fV8CzGNmVwYYDizKa5l2jqegHh3mUeDt3eaLXrdnwuobid+KCGL/THxy0/CEpkl3fCKPTCTU6jNyLMjnw8ELuuTR3OS+EqwaTbONZT4JrOjpfg6E3N8Wyj6DZTY/JFW4Bt94t4YSTyeEBHtF/YVvxnRXctcTkWzvGgBZb7DqJnYi2Mbuo1Xkje4NZPnNTJdCRQM/dPGTfca0Mb9dTJM3qftB1+f8ia4VlhAEcokJGEmwqy2N/GECVQuqTSlM3MEaKr9ZEV7qj3Xl3Z5+9miXuJwrc11Hv2d7wcfRHIQOstrz8N4MVA=
 jobs:
   include:
   - stage: build container
@@ -17,22 +17,24 @@ jobs:
     - IMAGE_TAG=latest
     - DOCKERFILE_NAME=Dockerfile
     before_script: docker pull $REPO_NAME/$IMAGE_NAME:$IMAGE_TAG || true
-    script: docker build 
-      --build-arg VCS_REF=$IMAGE_VCS_REF
-      --build-arg BUILD_DATE=$IMAGE_BUILD_DATE
-      --build-arg VERSION=$IMAGE_VERSION
-      --build-arg IMAGE_NAME=$IMAGE_NAME
-      --cache-from $REPO_NAME/$IMAGE_NAME:$IMAGE_TAG
-      --tag $REPO_NAME/$IMAGE_NAME:$IMAGE_TAG
-      --file $DOCKERFILE_NAME
-      .
+    script: docker build
+            --build-arg VCS_REF=$IMAGE_VCS_REF
+            --build-arg BUILD_DATE=$IMAGE_BUILD_DATE
+            --build-arg VERSION=$IMAGE_VERSION
+            --build-arg IMAGE_NAME=$IMAGE_NAME
+            --cache-from $REPO_NAME/$IMAGE_NAME:$IMAGE_TAG
+            --tag $REPO_NAME/$IMAGE_NAME:$IMAGE_TAG
+            --file $DOCKERFILE_NAME
+            .
     before_deploy:
         - docker run --rm --volume $(pwd)/test-monitor.ini:/monitor/monitor.ini --volume $(pwd)/test-monitors.ini:/monitor/monitors.ini $REPO_NAME/$IMAGE_NAME:$IMAGE_TAG --log-level=debug --test
         - docker run --rm --volume $(pwd)/test-monitor.ini:/monitor/monitor.ini --volume $(pwd)/test-monitors.ini:/monitor/monitors.ini $REPO_NAME/$IMAGE_NAME:$IMAGE_TAG --log-level=debug --one-shot
     deploy:
       provider: script
-      script: docker login --username "$DOCKER_HUB_USERNAME" --password "$DOCKER_HUB_PASSWORD" && docker push $REPO_NAME/$IMAGE_NAME:$IMAGE_TAG
+      script: echo "$DOCKER_HUB_PASSWORD" | docker login --username "$DOCKER_HUB_USERNAME" --password-stdin && 
+              docker push $REPO_NAME/$IMAGE_NAME:$IMAGE_TAG
       on:
         branch: master
 stages:
- - build container
+  - build container
+
