@@ -31,9 +31,7 @@ jobs:
         - docker run --rm --volume $(pwd)/test-monitor.ini:/monitor/monitor.ini --volume $(pwd)/test-monitors.ini:/monitor/monitors.ini $REPO_NAME/$IMAGE_NAME:$IMAGE_TAG --log-level=debug --one-shot
     deploy:
       provider: script
-      script:
-        - docker login --username "$DOCKER_HUB_USERNAME" --password "$DOCKER_HUB_PASSWORD"
-        - docker push $REPO_NAME/$IMAGE_NAME:$IMAGE_TAG
+      script: docker login --username "$DOCKER_HUB_USERNAME" --password "$DOCKER_HUB_PASSWORD" && docker push $REPO_NAME/$IMAGE_NAME:$IMAGE_TAG
       on:
         branch: master
 stages:
